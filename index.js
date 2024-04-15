@@ -1,28 +1,24 @@
-import express from 'express'
-import cors from 'cors'
-import dotenv from 'dotenv'
-import connectDB from './Database/Config.js'
-import StudentRouter from './Router/Student.Router.js'
-import MentorRouter from './Router/Mentor.Router.js'
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./Database/Config.js";
+import StudentRouter from "./Router/Student.Router.js";
+import MentorRouter from "./Router/Mentor.Router.js";
 
+dotenv.config();
+const app = express();
+app.use(cors());
+app.use(express.json());
+const port = process.env.PORT || 5000; /* Incase of port failure */
 
+connectDB();
 
-dotenv.config()
-const app = express()
-app.use(cors())
-app.use(express.json())
-const port  = process.env.PORT
-
-connectDB()
-
-app.use('/api/mentor',MentorRouter)
-app.use('/api/student',StudentRouter)
-
-
+app.use("/api/mentor", MentorRouter);
+app.use("/api/student", StudentRouter);
 
 app.get("/", (req, res) => {
-    res.status(200)
-      .send(`<div style="text-align: center; background-color:lightgray;  padding: 10px;"><h1>Assign the Mentors to the students</h1></div>
+  res.status(200)
+    .send(`<div style="text-align: center; background-color:lightgray;  padding: 10px;"><h1>Assign the Mentors to the students</h1></div>
       <div>
       <h1  style="text-align: center;">For Mentor</h1>
       <h3>Base API:http://localhost:4000/api/mentor</h3>
@@ -69,11 +65,8 @@ app.get("/", (req, res) => {
   
       </ul> 
       </div>`);
-  });
+});
 
-
-
-
-app.listen(port,()=>{
-    console.log("App is running on the port -", port);
-})
+app.listen(port, () => {
+  console.log("App is running on the port -", port);
+});
