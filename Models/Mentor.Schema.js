@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const mentorSchema = mongoose.Schema({
     name:String,
-    email:String,
+    email:String,/*have some email validator instead of common String type and use sanitation */,
     students:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Student'
